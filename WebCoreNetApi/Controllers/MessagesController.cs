@@ -32,7 +32,9 @@ namespace WebCoreNetApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Message>> GetMessage(int id)
         {
-            var message = await _context.Messages.FindAsync(id);
+            var message = await _context.Messages
+                        .OrderByDescending(p => p.Id)
+                        .FirstOrDefaultAsync();
 
             if (message == null)
             {
